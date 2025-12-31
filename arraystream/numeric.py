@@ -27,12 +27,13 @@ def scan(arr: array.array, op: str = "sum") -> array.array:
     """
     check_array_type(arr)
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _scan_python(arr, op)
-    
-    # Use Rust implementation
-    return _scan_rust(arr, op)
+    # TODO: Fix Rust implementation - currently has runtime error:
+    # TypeError: 'str' object cannot be interpreted as an integer
+    # Temporarily using Python fallback until Rust issue is resolved
+    # if not _RUST_AVAILABLE:
+    #     return _scan_python(arr, op)
+    # return _scan_rust(arr, op)
+    return _scan_python(arr, op)
 
 
 def _scan_python(arr: array.array, op: str) -> array.array:
@@ -70,12 +71,8 @@ def diff(arr: array.array) -> array.array:
     if len(arr) < 2:
         return array.array(arr.typecode)
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _diff_python(arr)
-    
-    # Use Rust implementation
-    return _diff_rust(arr)
+    # TODO: Fix Rust implementation
+    return _diff_python(arr)
 
 
 def _diff_python(arr: array.array) -> array.array:
@@ -103,12 +100,8 @@ def pairwise(arr: array.array) -> array.array:
     if len(arr) < 2:
         return array.array(arr.typecode)
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _pairwise_python(arr)
-    
-    # Use Rust implementation
-    return _pairwise_rust(arr)
+    # TODO: Fix Rust implementation
+    return _pairwise_python(arr)
 
 
 def _pairwise_python(arr: array.array) -> array.array:
@@ -140,12 +133,8 @@ def clip(arr: array.array, min_val: Union[int, float], max_val: Union[int, float
     if min_val > max_val:
         raise ValueError("min_val must be <= max_val")
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _clip_python(arr, min_val, max_val)
-    
-    # Use Rust implementation
-    return _clip_rust(arr, min_val, max_val)
+    # TODO: Fix Rust implementation
+    return _clip_python(arr, min_val, max_val)
 
 
 def _clip_python(arr: array.array, min_val: Union[int, float], max_val: Union[int, float]) -> array.array:

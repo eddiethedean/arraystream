@@ -1,6 +1,6 @@
 use pyo3::prelude::*;
 use pyo3::exceptions::{PyTypeError, PyValueError};
-use pyo3::types::PyList;
+use pyo3::types::{PyList, PySequence};
 
 /// Supported numeric typecodes
 const SUPPORTED_TYPECODES: &[u8] = b"bBhHiIlLfd";
@@ -45,15 +45,16 @@ pub fn scan(py: Python, arr: &PyAny, op: &str) -> PyResult<PyObject> {
         return Ok(array_type.call1((typecode_str, Vec::<u8>::new()))?.to_object(py));
     }
     
-    // Extract array elements by converting to list first
+    // Extract array elements by converting to list and iterating
     let list_obj = arr.call_method0("tolist")?;
-    let list: &PyList = list_obj.downcast()?;
+    let list: &PySequence = list_obj.downcast()?;
     
     match typecode {
         b'i' => {
             let mut data = Vec::with_capacity(len);
-            for i in 0..len {
-                let val: i32 = list.get_item(i)?.extract::<i32>()?;
+            for idx in 0..len {
+                let item = list.get_item(idx)?;
+                let val: i32 = item.extract::<i32>()?;
                 data.push(val);
             }
             scan_impl_i32(py, &data, op, "i")

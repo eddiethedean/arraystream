@@ -27,12 +27,8 @@ def run_length_encode(arr: array.array) -> Dict[str, array.array]:
     """
     check_array_type(arr)
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _rle_python(arr)
-    
-    # Use Rust implementation
-    return _rle_rust(arr)
+    # TODO: Fix Rust implementation
+    return _rle_python(arr)
 
 
 def _rle_python(arr: array.array) -> Dict[str, array.array]:
@@ -84,12 +80,8 @@ def groupby_runs(arr: array.array) -> List[array.array]:
     if len(arr) == 0:
         return []
     
-    if not _RUST_AVAILABLE:
-        # Fallback Python implementation
-        return _groupby_runs_python(arr)
-    
-    # Use Rust implementation
-    return _groupby_runs_rust(arr)
+    # TODO: Fix Rust implementation
+    return _groupby_runs_python(arr)
 
 
 def _groupby_runs_python(arr: array.array) -> List[array.array]:
